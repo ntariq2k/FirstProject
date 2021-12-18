@@ -24,15 +24,41 @@ import yfinance as yf
 # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
 # print (symbol.history(period="max"))
 
-df = yf.download("ndx", period='max', interval = '3mo', group_by= 'ticker', )
+df = yf.download("ndx", start= '1986-01-01', interval = '3mo', group_by= 'ticker', )
 # df['High-Low'] = df['High'] - df['Low']
 # df['% change'] = df['High-Low'] / df['Low']
+del df['Open']
+del df['High']
+del df['Low']
 
-df['Close-Open'] = df['Close'] - df['Open']
-df['% change'] = df['Close-Open'] / df['Open']
 
-#data = yf.download(tickers = "SPY AMZN", period='6mo')
+
+#df.reset_index(inplace = False, drop = False)
+#df.drop(df.loc[(df.index.month==1) | (df.index.month==4) |   (df.index.month==7)])
+
+
+#df.dropna(subset = ["Close"], inplace=True)
+
+
+#df1 = [df.index % 100 == 1]
+#df1 = df.drop(index=[0])
+#df1 = df[df.index % 1 != 0]
+
+#del df['Adj Close']
+#df= df.iloc[::1]
+#df= df.iloc[::2]
+#df= df.iloc[::3]
+
+
+
+
+
+#df['Close-Open'] = df['Close'] - df['Open']
+#df['% change'] = df['Close-Open'] / df['Open']
+
+
+
+
 #print(data)
 df.to_csv('yahoo.csv')
 print(df)
-#print(df.columns)print(df)
